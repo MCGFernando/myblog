@@ -1,0 +1,20 @@
+/* body{
+    background: #352f5b;
+  }
+
+  input[type=search],
+  input[type=search]:focus{
+    color: #fff;
+    border: none;
+    background: rgba(0,0,0,0.2);
+  }
+  .card{
+    background: #423a6f;
+  }
+  .delete{
+    cursor: pointer;
+  }
+
+  .filtered{
+      display: none !important;
+  } */
