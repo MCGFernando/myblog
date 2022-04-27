@@ -21,7 +21,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/admin", (req, res) => {
-  res.render("admin");
+  res.render("admin", {user});
 });
 
 /* app.get("/signup", (req, res) => {

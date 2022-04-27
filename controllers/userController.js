@@ -9,18 +9,20 @@ const user_create = (req, res) => {
   user
     .save()
     .then((result) => {
-      console.log("User Cadastrado");
       res.send(result);
     })
     .catch((err) => console.log(err));
 };
 
-const user_list = (req, res) => {
-  res.render("index");
+const user_list = async (req, res) => {
+  const result = await User.find()
+  res.render("table_list_users", {users : result});
 };
 
-const user_list_id = (req, res) => {
-  res.render("categoria/form_cadastro_categoria");
+const user_list_id = async (req, res) => {
+  const id = req.params.id
+  const result = await User.findById(id)
+  res.render("form_user", {user : result});
 };
 
 const user_list_titulo = (req, res) => {
@@ -28,7 +30,9 @@ const user_list_titulo = (req, res) => {
 };
 
 const user_update = (req, res) => {
-  res.render("admin");
+  console.log(req.params.id)
+  console.log(req.body)
+  //res.render("admin");
 };
 
 const user_delete = (req, res) => {
