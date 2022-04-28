@@ -1,0 +1,33 @@
+<html lang="en">
+  <%- include('./partials/head.ejs') %>
+  <body>
+    <nav class="navbar navbar-light bg-light">
+      <div class="container-fluid mx-5">
+        <a class="navbar-brand h1" href="#">Blog Dev</a>
+        
+        <ul class="nav justify-content-center">
+            <li class="nav-item">
+              <a class="nav-link rounded-pill bg-dark" aria-current="page" href="#">Dark</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Login</a>
+            </li>
+        </ul>
+        <!-- <span class="badge rounded-pill bg-dark">Dark</span> -->
+      </div>
+    </nav>
+    <div class="container-md">
+      
+      <main class="conteudo mt-5">
+        <h2 class="card-title"><%= post.titulo%></h2>
+        <article>
+          <%=  post.post%>
+        </article>
+
+        <section class="comentarios"></section>
+      </main>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>

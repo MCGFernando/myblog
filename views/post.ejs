@@ -1,0 +1,167 @@
+<html lang="en">
+  <%- include('./partials/head.ejs') %>
+  <body>
+    <div class="container">
+      <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button
+            class="nav-link active"
+            id="home-tab"
+            data-bs-toggle="tab"
+            data-bs-target="#home"
+            type="button"
+            role="tab"
+            aria-controls="home"
+            aria-selected="true"
+          >
+            Listar
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button
+            class="nav-link"
+            id="profile-tab"
+            data-bs-toggle="tab"
+            data-bs-target="#profile"
+            type="button"
+            role="tab"
+            aria-controls="profile"
+            aria-selected="false"
+          >
+            Novo
+          </button>
+        </li>
+      </ul>
+      <div class="tab-content" id="myTabContent">
+        <div
+          class="tab-pane fade show active"
+          id="home"
+          role="tabpanel"
+          aria-labelledby="home-tab"
+        >
+          <header class="text-center my-4">
+            <h1 class="mb-4">Lista de Artigos</h1>
+            <form class="search">
+              <input
+                class="form-control m-auto"
+                type="text"
+                name="search"
+                placeholder="search todos"
+              />
+            </form>
+          </header>
+
+          <ul class="list-group todos mx-auto text-light">
+            <%
+              if (posts.length > 0){
+                posts.forEach(post => {
+            %>
+            <li class="list-group-item d-flex justify-content-between align-items-center my-1 border">
+              <span><%= post.titulo%></span>
+              <div class="btn-group">
+                <button type="button" class="btn  dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                  <i class="fa fa-ellipsis-v"></i>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end">
+                  <li><button class="dropdown-item" type="button">Editar</button></li>
+                  <li><button class="dropdown-item" type="button">Remover</button></li>
+                  <li><button class="dropdown-item" type="button">Acesso</button></li>
+                </ul>
+              </div>
+            </li>
+            <%})} else {%>
+              <p>Sem posts para mostrar</p>
+            <%}%>
+          </ul>
+        </div>
+        <!--  -->
+        <div
+          class="tab-pane fade"
+          id="profile"
+          role="tabpanel"
+          aria-labelledby="profile-tab"
+        >
+          <header class="text-center my-4">
+            <h1 class="mb-4">Novo Artigo</h1>
+          </header>
+          <form method="post" action="/post">
+            <div class="mb-3">
+              <label for="exampleFormControlInput1" class="form-label"
+                >Título do Artigo</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="titulo"
+                name="titulo"
+                placeholder="Digite um título para o post"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="exampleFormControlInput1" class="form-label"
+                >Descrição do Artigo</label
+              >
+              <textarea
+                class="form-control"
+                name="descricao"
+                id="descricao"
+                cols="30"
+                rows="5"
+              ></textarea>
+            </div>
+            <div class="mb-3">
+              <label for="exampleFormControlInput1" class="form-label"
+                >Autor do Artigo</label
+              >
+              <select class="form-select" aria-label="Default select example" id="user" name="user">
+                <% if (users.length > 0){%>
+                <option selected disabled>Selecione o Autor</option>  
+                  <% users.forEach(user => {%>
+                <option value="<%= user._id%>"><%= user.nome%></option>
+                <%})} else {%>
+                  <option value="1" selected disabled>Sem Autores para seleciona</option>
+                <%}%>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="exampleFormControlInput1" class="form-label"
+                >Tags do Artigo</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="tags"
+                name="tags"
+                placeholder="Digite tags para o post"
+              />
+            </div>
+            
+            <div class="mb-3">
+              <label for="exampleFormControlInput1" class="form-label"
+                >Corpo do Artigo</label
+              >
+              <textarea id="summernote" name="post"></textarea>
+            </div>
+            <input type="submit" value="Cadastro" />
+          </form>
+        </div>
+      </div>
+    </div>
+    <script>
+      var triggerTabList = [].slice.call(
+        document.querySelectorAll("#myTab button")
+      );
+      triggerTabList.forEach(function (triggerEl) {
+        var tabTrigger = new bootstrap.Tab(triggerEl);
+
+        triggerEl.addEventListener("click", function (event) {
+          event.preventDefault();
+          tabTrigger.show();
+        });
+      });
+      $(document).ready(function () {
+        $("#summernote").summernote();
+      });
+    </script>
+  </body>
+</html>

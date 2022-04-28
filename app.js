@@ -1,7 +1,11 @@
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
-const userRoutes = require('./routes/userRoutes')
+const userRoutes = require("./routes/userRoutes");
+const postRoutes = require("./routes/postRoutes");
+
+const Post = require('./models/post')
+
 app.set("view engine", "ejs");
 app.listen(3000);
 
@@ -14,18 +18,12 @@ mongoose
   })
   .catch((err) => console.log(err));
 
-  app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true }));
 
-app.get("/", (req, res) => {
-  res.render("index");
+app.get("/", async (req, res) => {
+  const result = await Post.find()
+  res.render("index", {posts : result});
 });
 
-app.get("/admin", (req, res) => {
-  res.render("admin", {user});
-});
-
-/* app.get("/signup", (req, res) => {
-  res.render("signup");
-});
- */
-app.use('/user', userRoutes)
+app.use("/user", userRoutes);
+app.use("/post", postRoutes);
